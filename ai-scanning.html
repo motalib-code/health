@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Care - AI Health Scanner</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div>
+                        <a href="#" class="flex items-center py-4">
+                            <i class="fas fa-heartbeat text-2xl text-blue-500 mr-2"></i>
+                            <span class="font-semibold text-gray-500 text-lg">Smart Care</span>
+                        </a>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-1">
+                        <a href="#" class="py-4 px-2 text-blue-500 border-b-4 border-blue-500 font-semibold">Home</a>
+                        <a href="#" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">AI Scanning</a>
+                        <a href="#" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">Medicine Chatbot</a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-3">
+                    <a href="#" class="py-2 px-2 font-medium text-gray-500 rounded hover:bg-blue-500 hover:text-white transition duration-300">Log In</a>
+                    <a href="#" class="py-2 px-2 font-medium text-white bg-blue-500 rounded hover:bg-blue-400 transition duration-300">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto mt-10 px-4">
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">AI-Powered Health Scanning</h1>
+            <p class="text-gray-600 mb-6">Use your camera to scan for symptoms, and our AI will identify potential health issues and provide solutions.</p>
+            
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="w-full md:w-1/2">
+                    <div class="bg-gray-200 rounded-lg aspect-w-4 aspect-h-3 mb-4">
+                        <div id="camera-feed" class="w-full h-64 flex items-center justify-center text-gray-500">
+                            Camera feed will appear here
+                        </div>
+                    </div>
+                    <button id="start-scan" class="w-full bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-center justify-center">
+                        <i class="fas fa-camera mr-2"></i>
+                        Start Scanning
+                    </button>
+                </div>
+                
+                <div class="w-full md:w-1/2">
+                    <div class="bg-gray-50 rounded-lg p-4 h-64 mb-4">
+                        <h2 class="text-xl font-semibold mb-4">AI Diagnosis</h2>
+                        <div id="diagnosis-result" class="text-gray-600">
+                            No diagnosis yet. Start a scan to begin.
+                        </div>
+                    </div>
+                    <button id="get-solutions" class="w-full bg-green-500 text-white py-3 px-4 rounded-lg hover:bg-green-400 transition duration-300 flex items-center justify-center" disabled>
+                        <i class="fas fa-list-ul mr-2"></i>
+                        Get Solutions
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Scans</h2>
+            <div class="space-y-4">
+                <!-- Placeholder for scan history -->
+                <p class="text-gray-600">No recent scans available.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-10">
+        <div class="max-w-6xl mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>&copy; 2024 Smart Care. All rights reserved.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-blue-400 transition duration-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-blue-400 transition duration-300">Terms of Service</a>
+                    <a href="#" class="hover:text-blue-400 transition duration-300">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const startScanBtn = document.getElementById('start-scan');
+            const getSolutionsBtn = document.getElementById('get-solutions');
+            const diagnosisResult = document.getElementById('diagnosis-result');
+            let scanning = false;
+
+            startScanBtn.addEventListener('click', function() {
+                if (!scanning) {
+                    // Simulate starting a scan
+                    scanning = true;
+                    startScanBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Scanning...';
+                    diagnosisResult.innerHTML = 'Analyzing...';
+
+                    // Simulate scan completion after 3 seconds
+                    setTimeout(() => {
+                        scanning = false;
+                        startScanBtn.innerHTML = '<i class="fas fa-camera mr-2"></i>Start Scanning';
+                        diagnosisResult.innerHTML = 'Scan complete. Possible symptoms detected:<br>- Mild skin redness<br>- Slight swelling';
+                        getSolutionsBtn.disabled = false;
+                    }, 3000);
+                }
+            });
+
+            getSolutionsBtn.addEventListener('click', function() {
+                diagnosisResult.innerHTML += '<br><br>Recommended solutions:<br>1. Apply cold compress<br>2. Monitor for 24 hours<br>3. If symptoms persist, consult a healthcare provider';
+            });
+        });
+    </script>
+    
+</body>
+</html>

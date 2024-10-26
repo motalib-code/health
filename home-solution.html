@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AyurVaidya AI - Traditional Wisdom, Modern Healing</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body class="bg-yellow-50">
+    <nav class="bg-green-800 text-yellow-100 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div class="flex items-center py-4">
+                        <img src="/api/placeholder/50/50" alt="AyurVaidya Logo" class="h-10 w-10 mr-2 rounded-full">
+                        <span class="font-bold text-xl">AyurVaidya AI</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <select id="languageSelect" class="bg-green-700 text-yellow-100 rounded-md border-green-600 focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी</option>
+                        <option value="sa">संस्कृतम्</option>
+                        <option value="ta">தமிழ்</option>
+                    </select>
+                    <button id="doshaTest" class="bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 transition">
+                        Dosha Test
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-xl p-6 border-2 border-green-800">
+                <div class="mb-4">
+                    <div class="flex space-x-2">
+                        <button id="remedyBtn" class="flex-1 py-2 px-4 bg-green-800 text-yellow-100 rounded-lg hover:bg-green-700 transition">Home Remedies</button>
+                        <button id="dietBtn" class="flex-1 py-2 px-4 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition">Diet Suggestions</button>
+                        <button id="yogaBtn" class="flex-1 py-2 px-4 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition">Yoga & Pranayama</button>
+                    </div>
+                </div>
+
+                <div class="chat-container h-96 overflow-y-auto mb-4 p-4 border-2 border-green-100 rounded-lg bg-green-50" id="chatContainer">
+                    <div class="welcome-message bg-yellow-100 p-4 rounded-lg mb-4 border-l-4 border-yellow-600">
+                        <h2 class="text-xl font-bold mb-2 text-green-800">Namaste 🙏</h2>
+                        <p class="text-green-800">How can I assist you with Ayurvedic wisdom today?</p>
+                        <ul class="list-disc pl-5 mt-2 text-green-800">
+                            <li>Natural home remedies</li>
+                            <li>Personalized diet suggestions</li>
+                            <li>Yoga and Pranayama techniques</li>
+                            <li>Dosha balancing advice</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-2">
+                    <input type="text" id="userInput" class="flex-1 p-2 border-2 border-green-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-50" placeholder="Describe your health concern...">
+                    <button id="voiceInput" class="p-2 bg-green-800 text-yellow-100 rounded-lg hover:bg-green-700 transition">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button id="sendMessage" class="p-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                
+                <div class="mt-4 flex items-center justify-between text-sm text-green-800">
+                    <div class="flex space-x-4">
+                        <button id="toggleVoiceOutput" class="flex items-center space-x-1">
+                            <i class="fas fa-volume-up"></i>
+                            <span>Sanskrit Chanting: On</span>
+                        </button>
+                    </div>
+                    <div class="text-right flex items-center space-x-2">
+                        <span id="prakrutiInfo">Your Prakruti: Unknown</span>
+                        <i class="fas fa-info-circle cursor-pointer" id="prakrutiInfoIcon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dosha Test Modal -->
+    <div id="doshaModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 max-w-md">
+            <h2 class="text-xl font-bold mb-4 text-green-800">Discover Your Prakruti (Body Constitution)</h2>
+            <div id="doshaQuestions">
+                <!-- Questions will be dynamically added here -->
+            </div>
+            <button id="closeDoshaModal" class="w-full bg-yellow-600 text-white py-2 rounded-lg hover:bg-yellow-700 transition mt-4">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Ayurvedic Knowledge Base
+        const ayurvedicDatabase = {
+            remedies: {
+                "headache": {
+                    vata: {
+                        herbs: ["Brahmi", "Ashwagandha", "Shankhapushpi"],
+                        procedures: ["Shiro Abhyanga (head massage with sesame oil)", "Steam inhalation with eucalyptus"],
+                        diet: ["Warm ginger tea", "Avoid cold foods"],
+                        yoga: ["Sheetali pranayama", "Vajrasana"]
+                    },
+                    pitta: {
+                        herbs: ["Amalaki", "Brahmi", "Jatamansi"],
+                        procedures: ["Sheetali pranayama", "Cold compress on forehead"],
+                        diet: ["Coconut water", "Avoid spicy foods"],
+                        yoga: ["Sheetali pranayama", "Shirshasana (under guidance)"]
+                    },
+                    kapha: {
+                        herbs: ["Ginger", "Tulsi", "Pippali"],
+                        procedures: ["Nasya (nasal drops)", "Steam inhalation with camphor"],
+                        diet: ["Hot ginger tea", "Avoid dairy"],
+                        yoga: ["Kapalbhati pranayama", "Surya Namaskar"]
+                    }
+                },
+                "digestive_issues": {
+                    vata: {
+                        herbs: ["Cumin", "Fennel", "Ajwain"],
+                        procedures: ["Abdominal massage with sesame oil", "Hot water bottle"],
+                        diet: ["Cooked, warm foods", "Avoid raw vegetables"],
+                        yoga: ["Pawanmuktasana", "Vajrasana"]
+                    },
+                    pitta: {
+                        herbs: ["Coriander", "Fennel", "Mint"],
+                        procedures: ["Consume aloe vera juice", "Triphala before bed"],
+                        diet: ["Cooling foods", "Avoid spicy and fermented foods"],
+                        yoga: ["Sheetali pranayama", "Bhujangasana"]
+                    },
+                    kapha: {
+                        herbs: ["Ginger", "Black pepper", "Long pepper"],
+                        procedures: ["Fasting till noon", "Dry ginger powder before meals"],
+                        diet: ["Light, warm foods", "Avoid heavy, oily foods"],
+                        yoga: ["Surya Namaskar", "Kapalbhati"]
+                    }
+                }
+            },
+            herbs: {
+                "ashwagandha": {
+                    sanskrit_name: "अश्वगन्धा",
+                    properties: ["Adaptogenic", "Strengthening", "Calming"],
+                    doshas: ["Vata", "Kapha"],
+                    contraindications: ["Pregnancy", "High blood pressure"],
+                    preparation: "2-6g powder with warm milk before bed"
+                },
+                "triphala": {
+                    sanskrit_name: "त्रिफला",
+                    properties: ["Detoxifying", "Rejuvenating", "Balancing"],
+                    doshas: ["All doshas"],
+                    contraindications: ["Pregnancy", "Diarrhea"],
+                    preparation: "2-4g powder with warm water before bed"
+                }
+            },
+            yoga_asanas: {
+                "vajrasana": {
+                    sanskrit_name: "वज्रासन",
+                    benefits: ["Improves digestion", "Calming for mind"],
+                    precautions: ["Knee problems"],
+                    duration: "5-15 minutes after meals"
+                },
+                "bhujangasana": {
+                    sanskrit_name: "भुजंगासन",
+                    benefits: ["Strengthens spine", "Opens chest"],
+                    precautions: ["Back injury", "Pregnancy"],
+                    duration: "30-60 seconds, 3-5 repetitions"
+                }
+            }
+        };
+
+        class AyurvedicAI {
+            constructor() {
+                this.currentMode = 'remedy';
+                this.userPrakruti = null;
+                this.voiceOutputEnabled = true;
+                this.contextHistory = [];
+                this.initializeElements();
+                this.initializeEventListeners();
+                this.loadSanskritVoice();
+            }
+
+            initializeElements() {
+                this.elements = {
+                    chatContainer: document.getElementById('chatContainer'),
+                    userInput: document.getElementById('userInput'),
+                    sendMessage: document.getElementById('sendMessage'),
+                    voiceInput: document.getElementById('voiceInput'),
+                    toggleVoiceOutput: document.getElementById('toggleVoiceOutput'),
+                    languageSelect: document.getElementById('languageSelect'),
+                    doshaTest: document.getElementById('doshaTest'),
+                    doshaModal: document.getElementById('doshaModal'),
+                    closeDoshaModal: document.getElementById('closeDoshaModal'),
+                    prakrutiInfo: document.getElementById('prakrutiInfo'),
+                    modeButtons: {
+                        remedy: document.getElementById('remedyBtn'),
+                        diet: document.getElementById('dietBtn'),
+                        yoga: document.getElementById('yogaBtn')
+                    }
+                };
+            }
+
+            initializeEventListeners() {
+                this.elements.sendMessage.addEventListener('click', () => this.handleUserInput());
+                this.elements.userInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.handleUserInput();
+                });
+                this.elements.voiceInput.addEventListener('click', () => this.toggleVoiceInput());
+                this.elements.toggleVoiceOutput.addEventListener('click', () => this.toggleVoiceOutput());
+                this.elements.doshaTest.addEventListener('click', () => this.showDoshaTest());
+                this.elements.closeDoshaModal.addEventListener('click', () => this.hideDoshaTest());
+
+                Object.entries(this.elements.modeButtons).forEach(([mode, button]) => {
+                    button.addEventListener('click', () => this.setMode(mode));
+                });
+            }
+
+            async handleUserInput() {
+                const userMessage = this.elements.userInput.value.trim();
+                if (!userMessage) return;
+
+                this.addMessage(userMessage, true);
+                this.elements.userInput.value = '';
+
+                try {
+                    this.addMessage("Consulting ancient wisdom...");
+                    const response = await this.processUserInput(userMessage);
+                    this.addMessage(response.message);
+                } catch (error) {
+                    this.handleError(error);
+                }
+            }
+
+            async processUserInput(input) {
+                await this.simulateProcessingDelay();
+                
+                const lowercaseInput = input.toLowerCase();
+                let response = {
+                    message: "",
+                    confidence: 0.5
+                };
+
+                // Check for symptoms in the input
+                for (const [condition, remedies] of Object.entries(ayurvedicDatabase.remedies)) {
+                    if (lowercaseInput.includes(condition.replace('_', ' '))) {
+                        response = this.generateAyurvedicResponse(condition, this.userPrakruti || 'vata');
+                        break;
+                    }
+                }
+
+                if (!response.message) {
+                    response.message = this.generateGeneralAdvice();
+                }
+
+                this.contextHistory.push({
+                    input: input,
+                    response: response,
+                    timestamp: new Date()
+                });
+
+                return response;
+            }
+
+            generateAyurvedicResponse(condition, dosha) {
+                const remedies = ayurvedicDatabase.remedies[condition][dosha];
+                const response = `
+Based on Ayurvedic principles, for your ${condition.replace('_', ' ')} with ${dosha} dominance:
+
+HERBS TO USE:
+${remedies.herbs.map(herb => `• ${herb}`).join('\n')}
+
+PROCEDURES:
+${remedies.procedures.map(proc => `• ${proc}`).join('\n')}
+
+DIETARY RECOMMENDATIONS:
+${remedies.diet.map(diet => `• ${diet}`).join('\n')}
+
+YOGA & PRANAYAMA:
+${remedies.yoga.map(yoga => `• ${yoga}`).join('\n')}
+
+Remember: This is traditional wisdom. For severe symptoms, please consult an Ayurvedic practitioner.
+
+Would you like detailed information about any specific herb or yoga posture?`;
+
+                return {
+                    message: response,
+                    confidence: 0.85
+                };
+            }
+
+            generateGeneralAdvice() {
+                const generalAdvice = [
+                    "According to Ayurveda, true health is a state of balanced doshas (Vata, Pitta, and Kapha).",
+                    "Consider taking our Dosha test to receive more personalized recommendations.",
+                    "General Ayurvedic guidelines for good health:",
+                    "1. Follow a regular daily routine (Dinacharya)",
+                    "2. Eat according to your body constitution",
+                    "3. Practice meditation and yoga",
+                    "4. Use seasonal herbs for prevention",
+                    "Would you like to know"

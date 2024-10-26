@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Tests - Smart Care Health</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #f8f9fa;
+            --accent-color: #34a853;
+            --text-color: #333;
+            --light-gray: #e9ecef;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .hero-section {
+            background-color: var(--secondary-color);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+
+        .popular-tests {
+            padding: 3rem 0;
+        }
+
+        .popular-tests h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .test-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .test-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 0.5rem 0;
+        }
+
+        .booking-form {
+            max-width: 500px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: rgb(159, 224, 247);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1557b0;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .loader {
+            display: none;
+            border: 4px solid var(--light-gray);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .confirmation-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background-color: #d4edda;
+            border-radius: 5px;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">Smart Care</div>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Lab Tests</a></li>
+                    <li><a href="#">Health Packages</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1>Book Your Lab Test Online</h1>
+            <p>Get accurate results from NABL certified laboratories</p>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for tests, packages..." id="searchInput">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="popular-tests">
+        <div class="container">
+            <h2>Popular Lab Tests</h2>
+            <div class="test-grid">
+                <div class="test-card" data-test="Complete Blood Count">
+                    <h3>Complete Blood Count (CBC)</h3>
+                    <p>Comprehensive blood analysis</p>
+                    <div class="price">₹599</div>
+                    <button class="btn">Book Now</button>
+                </div>
+                <div class="test-card" data-test="Thyroid Profile">
+                    <h3>Thyroid Profile</h3>
+                    <p>T3, T4 & TSH tests</p>
+                    <div class="price">₹799</div>
+                    <button class="btn">Book Now</button>
+                </div>
+                <div class="test-card" data-test="Diabetes Screening">
+                    <h3>Diabetes Screening</h3>
+                    <p>FBS, PPBS & HbA1c</p>
+                    <div class="price">₹899</div>
+                    <button class="btn">Book Now</button>
+                </div>
+                <div class="test-card" data-test="Lipid Profile">
+                    <h3>Lipid Profile</h3>
+                    <p>Cholesterol & triglycerides</p>
+                    <div class="price">₹699</div>
+                    <button class="btn">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking-section">
+        <div class="container">
+            <form class="booking-form" id="bookingForm">
+                <h2>Book Your Test</h2>
+                <div class="form-group">
+                    <label for="testSelect">Select Test</label>
+                    <select id="testSelect" required>
+                        <option value="">--Select a Test--</option>
+                        <option value="cbc">Complete Blood Count (CBC)</option>
+                        <option value="thyroid">Thyroid Profile</option>
+                        <option value="diabetes">Diabetes Screening</option>
+                        <option value="lipid">Lipid Profile</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Preferred Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <button type="submit" class="btn">Book Appointment</button>
+            </form>
+            <div id="loader" class="loader"></div>
+            <div id="confirmationMessage" class="confirmation-message">
+                <h3>Booking Confirmed!</h3>
+                <p>Thank you for choosing Smart Care. We'll contact you shortly to confirm your appointment.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Smart Care. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookingForm = document.getElementById('bookingForm');
+            const loader = document.getElementById('loader');
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const testCards = document.querySelectorAll('.test-card');
+            const testSelect = document.getElementById('testSelect');
+            const searchInput = document.getElementById('searchInput');
+
+            // Handle test card clicks
+            testCards.forEach(card => {
+                card.querySelector('.btn').addEventListener('click', function() {
+                    const testName = card.getAttribute('data-test');
+                    testSelect.value = testName.toLowerCase().replace(/ /g, '_');
+                    bookingForm.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Handle form submission
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                loader.style.display = 'block';
+                bookingForm.style.opacity = '0.5';
+
+                // Simulate API call
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    bookingForm.style.display = 'none';
+                    confirmationMessage.style.display = 'block';
+                }, 2000);
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                testCards.forEach(card => {
+                    const testName = card.querySelector('h3').textContent.toLowerCase();
+                    if (testName.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            // Set minimum date for appointment
+            const dateInput = document.getElementById('date');
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            dateInput.min = tomorrow.toISOString().split('T')[0];
+        });
+    </script>
+      <script src="lab-tests.js"></script>
+</body>
+</html>

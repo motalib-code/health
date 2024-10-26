@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine and Delivery Service</title>
+    <!-- Inline CSS -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #bdee0e;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        /* Navigation Menu */
+        nav {
+            background-color: #06f963;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #575757;
+        }
+
+        /* Medicine Scanned/Entered Section */
+        section.medicine {
+            padding: 40px;
+            background-color: white;
+            margin: 20px auto;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(245, 229, 4, 0.1);
+            border-radius: 10px;
+        }
+
+        section.medicine h2 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .medicine-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .medicine-form label {
+            font-weight: bold;
+        }
+
+        .medicine-form input {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .medicine-form input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        /* Delivery Details Section */
+        section.delivery {
+            padding: 40px;
+            background-color: white;
+            margin: 20px auto;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(152, 238, 4, 0.1);
+            border-radius: 10px;
+        }
+
+        section.delivery h2 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .delivery-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .delivery-form label {
+            font-weight: bold;
+        }
+
+        .delivery-form input, .delivery-form select {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .delivery-form input:focus, .delivery-form select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            grid-column: span 2;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        .submit-btn:hover {
+            background-color: #05ee10;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #10e136;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .medicine-form, .delivery-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Medicine & Delivery Service</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#medicine">Medicine Scanned/Entered</a>
+        <a href="#delivery">Delivery Details</a>
+    </nav>
+
+    <!-- Medicine Scanned/Entered Section -->
+    <section id="medicine" class="medicine">
+        <h2>Medicine Scanned/Entered</h2>
+        <form class="medicine-form" id="medicineForm">
+            <div>
+                <label for="medicine-name">Medicine Name:</label>
+                <input type="text" id="medicine-name" name="medicine-name" placeholder="Enter medicine name" required>
+            </div>
+            <div>
+                <label for="medicine-id">Medicine ID/Barcode:</label>
+                <input type="text" id="medicine-id" name="medicine-id" placeholder="Enter medicine ID or scan barcode" required>
+            </div>
+        </form>
+    </section>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Medicine Delivery - AI Scanning</title>
+        <link rel="stylesheet" href="ai-scanning1.css">
+    </head>
+    <body>
+        <!-- Navigation -->
+        <nav>
+            <
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="ai-scanning.html">AI Scanning</a></li>
+                <li><a href="medicine-chatbot.html">Medicine Chatbot</a></li>
+            </ul>
+        </nav>
+    
+        <!-- Medicine Scanning Section -->
+        <section class="medicine-scan-section">
+            <h2>Upload Medicine or Enter Medicine Name</h2>
+            <p>Either upload a photo of the medicine or manually type the name, and our AI will assist you with delivery.</p>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>MediQuick - Medicine Delivery</title>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                <style>
+                    :root {
+                        --primary-color: #2508fd;
+                        --secondary-color: #7915c0;
+                        --accent-color: #64B5F6;
+                        --text-color: #333;
+                        --light-gray: #f5f5f5;
+                    }
+            
+                    * {
+                        box-sizing: border-box;
+                        margin: 0;
+                        padding: 0;
+                    }
+            
+                    body {
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        line-height: 1.6;
+                        color: var(--text-color);
+                    }
+            
+                    .header {
+                        background-color: white;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                        padding: 1rem 2rem;
+                        position: sticky;
+                        top: 0;
+                        z-index: 100;
+                    }
+            
+                    .nav {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+            
+                    .logo {
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                        color: var(--primary-color);
+                    }
+            
+                    .nav-links {
+                        display: flex;
+                        gap: 1.5rem;
+                    }
+            
+                    .nav-link {
+                        text-decoration: none;
+                        color: var(--text-color);
+                        font-weight: 500;
+                    }
+            
+                    .main-content {
+                        max-width: 1200px;
+                        margin: 2rem auto;
+                        padding: 0 1rem;
+                    }
+            
+                    .search-section {
+                        background: var(--light-gray);
+                        padding: 2rem;
+                        border-radius: 8px;
+                        margin-bottom: 2rem;
+                    }
+            
+                    .search-container {
+                        display: flex;
+                        gap: 1rem;
+                        margin-bottom: 1rem;
+                    }
+            
+                    .search-input {
+                        flex: 1;
+                        padding: 0.75rem;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        font-size: 1rem;
+                    }
+            
+                    .search-btn {
+                        background: var(--primary-color);
+                        color: white;
+                        border: none;
+                        padding: 0.75rem 1.5rem;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-weight: bold;
+                    }
+            
+                    .upload-section {
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                    }
+            
+                    .upload-btn {
+                        background: var(--secondary-color);
+                        color: white;
+                        border: none;
+                        padding: 0.75rem 1.5rem;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-weight: bold;
+                    }
+            
+                    .products-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                        gap: 2rem;
+                    }
+            
+                    .product-card {
+                        border: 1px solid #ddd;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        transition: transform 0.3s;
+                    }
+            
+                    .product-card:hover {
+                        transform: translateY(-5px);
+                    }
+            
+                    .product-img {
+                        width: 100%;
+                        height: 200px;
+                        object-fit: cover;
+                    }
+            
+                    .product-info {
+                        padding: 1rem;
+                    }
+            
+                    .product-title {
+                        font-weight: bold;
+                        margin-bottom: 0.5rem;
+                    }
+            
+                    .product-price {
+                        color: var(--primary-color);
+                        font-weight: bold;
+                        margin-bottom: 0.5rem;
+                    }
+            
+                    .add-to-cart {
+                        background: var(--primary-color);
+                        color: white;
+                        border: none;
+                        padding: 0.5rem 1rem;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        width: 100%;
+                    }
+            
+                    #cart-sidebar {
+                        position: fixed;
+                        right: -300px;
+                        top: 0;
+                        width: 300px;
+                        height: 100%;
+                        background: white;
+                        box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+                        transition: right 0.3s;
+                        padding: 1rem;
+                        overflow-y: auto;
+                    }
+            
+                    .cart-header {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 1rem;
+                    }
+            
+                    .close-cart {
+                        background: none;
+                        border: none;
+                        font-size: 1.5rem;
+                        cursor: pointer;
+                    }
+            
+                    .cart-item {
+                        display: flex;
+                        gap: 1rem;
+                        margin-bottom: 1rem;
+                        padding-bottom: 1rem;
+                        border-bottom: 1px solid #ddd;
+                    }
+            
+                    .cart-item-img {
+                        width: 60px;
+                        height: 60px;
+                        object-fit: cover;
+                    }
+            
+                    .cart-item-info {
+                        flex: 1;
+                    }
+            
+                    .cart-total {
+                        margin-top: 1rem;
+                        font-weight: bold;
+                    }
+            
+                    .checkout-btn {
+                        background: var(--primary-color);
+                        color: white;
+                        border: none;
+                        padding: 0.75rem;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        width: 100%;
+                        margin-top: 1rem;
+                    }
+                </style>
+            </head>
+            <body>
+                <header class="header">
+                    <nav class="nav">
+                        <div class="logo">smartcare</div>
+                        <div class="nav-links">
+                            <a href="#" class="nav-link">Home</a>
+                            <a href="#" class="nav-link">Categories</a>
+                            <a href="#" class="nav-link">Orders</a>
+                            <a href="#" id="cart-btn" class="nav-link">Cart (0)</a>
+                        </div>
+                    </nav>
+                </header>
+            
+                <main class="main-content">
+                    <section class="search-section">
+                        <div class="search-container">
+                            <input type="text" class="search-input" placeholder="Search for medicines...">
+                            <button class="search-btn">Search</button>
+                        </div>
+                        <div class="upload-section">
+                            <button class="upload-btn">Upload Prescription</button>
+                            <p>or drag and drop your prescription here</p>
+                        </div>
+                    </section>
+            
+                    <section class="products-grid" id="products-container">
+                        <!-- Products will be dynamically added here -->
+                    </section>
+                </main>
+            
+                <div id="cart-sidebar">
+                    <div class="cart-header">
+                        <h2>Your Cart</h2>
+                        <button class="close-cart">&times;</button>
+                    </div>
+                    <div id="cart-items">
+                        <!-- Cart items will be dynamically added here -->
+                    </div>
+                    <div class="cart-total">Total: ₹0</div>
+                    <button class="checkout-btn">Proceed to Checkout</button>
+                </div>
+            
+                <script>
+                    const products = [
+                        { id: 1, name: "Paracetamol", price: 49.99, image: "/api/placeholder/250/200" },
+                        { id: 2, name: "Aspirin", price: 39.99, image: "/api/placeholder/250/200" },
+                        { id: 3, name: "Vitamin C", price: 149.99, image: "/api/placeholder/250/200" },
+                        { id: 4, name: "Cough Syrup", price: 99.99, image: "/api/placeholder/250/200" }
+                    ];
+            
+                    let cart = [];
+            
+                    function displayProducts() {
+                        const container = document.getElementById('products-container');
+                        container.innerHTML = products.map(product => `
+                            <div class="product-card">
+                                <img src="${product.image}" alt="${product.name}" class="product-img">
+                                <div class="product-info">
+                                    <div class="product-title">${product.name}</div>
+                                    <div class="product-price">₹${product.price}</div>
+                                    <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+            
+                    function addToCart(productId) {
+                        const product = products.find(p => p.id === productId);
+                        cart.push(product);
+                        updateCart();
+                    }
+            
+                    function updateCart() {
+                        const cartItems = document.getElementById('cart-items');
+                        const cartBtn = document.getElementById('cart-btn');
+                        
+                        cartBtn.textContent = `Cart (${cart.length})`;
+                        
+                        cartItems.innerHTML = cart.map(item => `
+                            <div class="cart-item">
+                                <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                                <div class="cart-item-info">
+                                    <div>${item.name}</div>
+                                    <div>₹${item.price}</div>
+                                </div>
+                            </div>
+                        `).join('');
+            
+                        const total = cart.reduce((sum, item) => sum + item.price, 0);
+                        document.querySelector('.cart-total').textContent = `Total: ₹${total.toFixed(2)}`;
+                    }
+            
+                    // Toggle cart sidebar
+                    document.getElementById('cart-btn').addEventListener('click', function() {
+                        const cartSidebar = document.getElementById('cart-sidebar');
+                        cartSidebar.style.right = cartSidebar.style.right === '0px' ? '-300px' : '0px';
+                    });
+            
+                    document.querySelector('.close-cart').addEventListener('click', function() {
+                        document.getElementById('cart-sidebar').style.right = '-300px';
+                    });
+            
+                    // Upload functionality
+                    document.querySelector('.upload-btn').addEventListener('click', function() {
+                        alert('Upload functionality would be implemented here');
+                    });
+            
+                    // Initialize
+                    displayProducts();
+                </script>
+            </body>
+            </html>
+           
+            
+    
+        <footer>
+            <p>&copy; 2024 Smart Care. All rights reserved.</p>
+        </footer>
+    
+        <!-- JavaScript -->
+        <script src="ai-scanning1.js"></script>
+    </body>
+    </html>
+    
+    
+    <!-- Delivery Section -->
+    <section id="delivery" class="delivery">
+        <h2>Delivery Form</h2>
+        <form class="delivery-form" id="deliveryForm">
+            <!-- Customer Information -->
+            <div>
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+            <div>
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div>
+                <label for="address">Delivery Address:</label>
+                <input type="text" id="address" name="address" placeholder="Enter your delivery address" required>
+            </div>
+            <div>
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+            </div>
+
+            <!-- Delivery Details -->
+            <div>
+                <label for="delivery-date">Delivery Date:</label>
+                <input type="date" id="delivery-date" name="delivery-date" required>
+            </div>
+            <div>
+                <label for="delivery-time">Delivery Time:</label>
+                <select id="delivery-time" name="delivery-time" required>
+                    <option value="">Select a time</option>
+                    <option value="morning">Morning (8am - 12pm)</option>
+                    <option value="afternoon">Afternoon (12pm - 4pm)</option>
+                    <option value="evening">Evening (4pm - 8pm)</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button type="submit" class="submit-btn">Submit Delivery Request</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Medicine & Delivery Service. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript for form interaction -->
+    <script>
+        // Medicine Form Submission Alert
+        document.getElementById('medicineForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const medicineName = document.getElementById('medicine-name').value;
+            const medicineID = document.getElementById('medicine-id').value;
+
+            if(medicineName && medicineID) {
+                alert(`Medicine Scanned: ${medicineName} with ID: ${medicineID}`);
+                document.getElementById('medicineForm').reset();
+            } else {
+                alert('Please enter all medicine details.');
+            }
+        });
+
+        // Delivery Form Submission Alert
+        document.getElementById('deliveryForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the form from submitting in the traditional way
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+            const deliveryDate = document.getElementById('delivery-date').value;
+            const deliveryTime = document.getElementById('delivery-time').value;
+
+            if(name && email && address && phone && deliveryDate && deliveryTime) {
+                alert(`Thank you, ${name}! Your delivery request has been submitted.\nWe will deliver on ${deliveryDate} during the ${deliveryTime} period.`);
+                // Clear form after submission
+                document.getElementById('deliveryForm').reset();
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+    </script>
+
+</body>
+</html>
